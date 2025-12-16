@@ -5,8 +5,12 @@ from pydantic import BaseModel
 from contextlib import asynccontextmanager
 from typing import List
 
+import os
+
+# 資料庫存放目錄
+DATA_DIR = "data"
 # 資料庫檔案名稱
-DB_NAME = "counter.db"
+DB_NAME = os.path.join(DATA_DIR, "counter.db")
 
 # Pydantic 模型
 class VisitRequest(BaseModel):
@@ -18,6 +22,9 @@ class CountResponse(BaseModel):
 
 # 初始化資料庫
 def init_db():
+    if not os.path.exists(DATA_DIR):
+        os.makedirs(DATA_DIR)
+    
     conn = sqlite3.connect(DB_NAME)
     cursor = conn.cursor()
     cursor.execute('''

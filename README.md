@@ -83,6 +83,25 @@ uvicorn main:app --reload
   }
   ```
 
+### 3. 取得所有計數 (Get All)
+取得資料庫中曾經紀錄過的所有網址與計數。
+
+- **URL**: `/api/all`
+- **Method**: `GET`
+- **Response**:
+  ```json
+  [
+    {
+       "url": "https://your-website.com/page1",
+       "count": 101
+    },
+    {
+       "url": "https://your-website.com/page2",
+       "count": 5
+    }
+  ]
+  ```
+
 ---
 
 ## 線上服務使用 (Zeabur)

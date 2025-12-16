@@ -3,6 +3,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from contextlib import asynccontextmanager
+from typing import List
 
 # 資料庫檔案名稱
 DB_NAME = "counter.db"
@@ -90,6 +91,22 @@ async def get_count(url: str):
         else:
             # 如果網址沒出現過，回傳 0
             return CountResponse(url=url, count=0)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/api/all", response_model=List[CountResponse])
+async def get_all_counts():
+    """
+    取得所有頁面的計數列表。
+    """
+    try:
+        conn = sqlite3.connect(DB_NAME)
+        cursor = conn.cursor()
+        cursor.execute("SELECT url, count FROM page_counts")
+        rows = cursor.fetchall()
+        conn.close()
+        
+        return [CountResponse(url=row[0], count=row[1]) for row in rows]
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 

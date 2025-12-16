@@ -85,6 +85,24 @@ uvicorn main:app --reload
 
 ---
 
+## 線上服務使用 (Zeabur)
+
+本服務已部署於 Zeabur，您可以直接使用以下網址，無需自己架設伺服器：
+
+**服務網址**: `https://counter-service.zeabur.app`
+
+### 範例：使用線上 API
+將前端程式碼中的 `API_URL` 替換為線上網址即可：
+
+```javascript
+// const API_URL = "http://localhost:8000/api/visit"; // 本地測試用
+const API_URL = "https://counter-service.zeabur.app/api/visit"; // 線上正式用
+```
+
+其餘參數與回傳格式皆完全相同。
+
+---
+
 ## 前端整合範例
 
 您可以直接參考 `demo.html`，或將以下程式碼加入您的網頁：
@@ -94,7 +112,7 @@ uvicorn main:app --reload
 
 <script>
     // 替換成您的後端服務網址
-    const API_URL = "http://localhost:8000/api/visit"; 
+    const API_URL = "https://counter-service.zeabur.app/api/visit"; 
     // 您目前的網頁網址，作為識別 ID
     const PAGE_URL = window.location.href; 
 
